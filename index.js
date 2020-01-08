@@ -1,14 +1,13 @@
 const express = require("express")
-const mysql = require("mysql")
 const adminRoute = require("./src/routes/adminRoute")
 const shopsRoute = require("./src/routes/shopsRoute")
-const placesRoute = require("./src/routes/placesRoute")
+//const placesRoute = require("./src/routes/placesRoute")
 
 
 const app = express()
 app.use("/admin", adminRoute)
 app.use("/shops", shopsRoute)
-app.use("/places", placesRoute)
+//app.use("/places", placesRoute)
 
 
 app.listen(3001, ()=>{

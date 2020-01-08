@@ -4,8 +4,21 @@ const db = require("../db/db")
 
 const shopsRoute = new express.Router()
 
+//tablodaki tüm bilgilerin gönderildiği alan
+shopsRoute.get("/allPlacesInfo", (req, res) => {
+    let sql = "SELECT * FROM shops"
+    db.query(sql,(err,succ) => {
+        if(err){
+            console.log("unable to get data...", err)
+            res.send(500)
+        }
+        res.send(succ)
+    })
+})
+
 shopsRoute.get("/sehirler", (req, res) => {
-    let sql = "SELECT DISTINCT sehir FROM (SELECT sehir FROM shops UNION SELECT sehir FROM placesToSee) sehirler"
+    //let sql = "SELECT DISTINCT sehir FROM (SELECT sehir FROM shops UNION SELECT sehir FROM placesToSee) sehirler"
+    let sql = "SELECT DISTINCT sehir FROM shops"
     db.query(sql,(err,succ) => {
         if(err){
             console.log("unable to get sehirler...", err)
