@@ -42,10 +42,10 @@ adminRoute.post("/tableCreate/:name", (req, res)=>{
 
 //test data girişini buradan sağlıyoruz...
 adminRoute.post("/postData/:tableName", (req,res)=>{
-    let data = {sehir:"istanbul", bolge:"eminönü", kategori:"genel", isim:"Ayasofya Müzesi", 
-                telefon:"-", bilgi:"This is a wonderful mosque and it was a church before" + 
+    let data = {sehir:"istanbul", bolge:"kadıköy", kategori:"tekstil", isim:"Tekstilin Kralı", 
+                telefon:"05404797534", bilgi:"This is a wonderful place" + 
                 "You won't be regretted",
-                konum:"40.960000,29.840000"}
+                konum:"40.947050,29.806030"}
     let sql =`INSERT INTO ${req.params.tableName} SET ?`
     db.query(sql, data, (err,succ)=>{
         if(err){
