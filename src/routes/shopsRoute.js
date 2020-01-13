@@ -16,6 +16,17 @@ shopsRoute.get("/allPlacesInfo", (req, res) => {
     })
 })
 
+shopsRoute.get("/staticInfo", (req, res) => {
+    let sql = "SELECT sehir,bolge,kategori FROM shops"
+    db.query(sql,(err,succ) => {
+        if(err){
+            console.log("unable to get data...", err)
+            res.send(500)
+        }
+        res.send(succ)
+    })
+})
+
 shopsRoute.get("/sehirler", (req, res) => {
     //let sql = "SELECT DISTINCT sehir FROM (SELECT sehir FROM shops UNION SELECT sehir FROM placesToSee) sehirler"
     let sql = "SELECT DISTINCT sehir FROM shops"
