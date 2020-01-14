@@ -51,9 +51,9 @@ shopsRoute.get("/bolgeler/:sehir",(req,res)=>{
     })
 })
 
-//veritabanında belirli bolgeye ait kategorileri çekiyoruz...
-shopsRoute.get("/kategoriler/:sehir/:bolge",(req,res)=>{
-    let sql = `SELECT DISTINCT kategori FROM shops WHERE sehir='${req.params.sehir}' AND bolge='${req.params.bolge}'`
+//veritabanında belirli şehre ait kategorileri çekiyoruz...
+shopsRoute.get("/kategoriler/:sehir/",(req,res)=>{
+    let sql = `SELECT DISTINCT kategori FROM shops WHERE sehir='${req.params.sehir}'`  //AND bolge='${req.params.bolge}
     db.query(sql,(err,succ)=>{
         if(err){
             console.log("something wrong with kategoriler",err)
@@ -63,9 +63,9 @@ shopsRoute.get("/kategoriler/:sehir/:bolge",(req,res)=>{
     })
 })
 
-//veritabanında belirli bir şehir, bolge ve kategoriye ait dükkanları çekiyoruz...
-shopsRoute.get("/dukkanlar/:sehir/:bolge/:kategori",(req,res)=>{
-    let sql = `SELECT isim FROM shops WHERE sehir='${req.params.sehir}' AND bolge='${req.params.bolge}' AND kategori='${req.params.kategori}'`
+//veritabanında belirli bir şehir ve kategoriye ait dükkanları çekiyoruz...
+shopsRoute.get("/dukkanlar/:sehir/:kategori",(req,res)=>{
+    let sql = `SELECT isim,id FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}'`
     db.query(sql,(err,succ)=>{
         if(err){
             console.log("something wrong with dükkanlar",err)
@@ -75,7 +75,7 @@ shopsRoute.get("/dukkanlar/:sehir/:bolge/:kategori",(req,res)=>{
     })
 })
 
-//veritabanında belirli bir şehir, bolge, kategori ve isim bilgilerine göre belirli bir dükkanın tüm bilgilerini çekiyoruz...
+//veritabanında belirli bir id'ye göre bir dükkanın tüm bilgilerini çekiyoruz...
 shopsRoute.get("/dukkan/:id",(req,res)=>{
     let sql = `SELECT * FROM shops WHERE id='${req.params.id}'`
     db.query(sql,(err,succ)=>{
