@@ -52,7 +52,7 @@ shopsRoute.get("/bolgeler/:sehir", (req, res) => {
 
 //veritabanında belirli şehre ait kategorileri çekiyoruz...
 shopsRoute.get("/kategoriler/:kategori/:sehir/", (req, res) => {
-  let sql = `SELECT DISTINCT ${req.params.kategori} FROM shops WHERE sehir='${req.params.sehir}'`; //AND bolge='${req.params.bolge}
+  let sql = `SELECT DISTINCT ${req.params.kategori},kategori FROM shops WHERE sehir='${req.params.sehir}'`; //AND bolge='${req.params.bolge}
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("something wrong with kategoriler", err);
@@ -64,7 +64,7 @@ shopsRoute.get("/kategoriler/:kategori/:sehir/", (req, res) => {
 
 //veritabanında belirli bir şehir ve kategoriye ait dükkanları çekiyoruz...
 shopsRoute.get("/dukkanlar/:sehir/:kategori", (req, res) => {
-  let sql = `SELECT isim,id FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}' OR kategoriEN='${req.params.kategori}' OR kategoriAR='${req.params.kategori}' OR kategoriDE='${req.params.kategori}' OR kategoriRU='${req.params.kategori}'`;
+  let sql = `SELECT isim,id,resim3,telefon FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}' OR kategoriEN='${req.params.kategori}' OR kategoriAR='${req.params.kategori}' OR kategoriDE='${req.params.kategori}' OR kategoriRU='${req.params.kategori}'`;
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("something wrong with dükkanlar", err);
