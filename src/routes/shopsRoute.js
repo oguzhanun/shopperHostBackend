@@ -64,7 +64,7 @@ shopsRoute.get("/kategoriler/:kategori/:sehir/", (req, res) => {
 
 //veritabanında belirli bir şehir ve kategoriye ait dükkanları çekiyoruz...
 shopsRoute.get("/dukkanlar/:sehir/:kategori", (req, res) => {
-  let sql = `SELECT isim,id,resim1,telefon FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}' OR kategoriEN='${req.params.kategori}' OR kategoriAR='${req.params.kategori}' OR kategoriDE='${req.params.kategori}' OR kategoriRU='${req.params.kategori}'`;
+  let sql = `SELECT isim,id,resim1,telefon,konum,rating FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}' OR kategoriEN='${req.params.kategori}' OR kategoriAR='${req.params.kategori}' OR kategoriDE='${req.params.kategori}' OR kategoriRU='${req.params.kategori}'`;
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("something wrong with dükkanlar", err);

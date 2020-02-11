@@ -1,7 +1,7 @@
 {
-  "name": "shopperhostbackend",
+  "name": "applaklak",
   "version": "1.0.0",
-  "description": "This is the backend of ShopperHost Application.",
+  "description": "This is the backend of AppLakLak.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
