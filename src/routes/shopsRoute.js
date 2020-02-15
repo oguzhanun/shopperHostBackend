@@ -5,7 +5,7 @@ const shopsRoute = new express.Router();
 
 //tablodaki tüm bilgilerin gönderildiği alan
 shopsRoute.get("/allPlacesInfo", (req, res) => {
-  let sql = "SELECT * FROM shops";
+  let sql = "SELECT * FROM shops ";
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("unable to get data...", err);
@@ -28,7 +28,7 @@ shopsRoute.get("/staticInfo", (req, res) => {
 
 shopsRoute.get("/sehirler", (req, res) => {
   //let sql = "SELECT DISTINCT sehir FROM (SELECT sehir FROM shops UNION SELECT sehir FROM placesToSee) sehirler"
-  let sql = "SELECT DISTINCT sehir FROM shops";
+  let sql = "SELECT sehir_adi, fotograf FROM sehir";
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("unable to get sehirler...", err);
@@ -51,8 +51,20 @@ shopsRoute.get("/bolgeler/:sehir", (req, res) => {
 });
 
 //veritabanında belirli şehre ait kategorileri çekiyoruz...
+shopsRoute.get("/kategoriler/:kategori", (req, res) => {
+  let sql = `SELECT ${req.params.kategori}, kategori_adi, fotograf, fotograf_EN, fotograf_AR FROM kategori` //ORDER BY kategori ASC; AND bolge='${req.params.bolge}
+  db.query(sql, (err, succ) => {
+    if (err) {
+      console.log("something wrong with kategoriler", err);
+      res.send("something wrong with kategoriler");
+    }
+    res.send(succ);
+  });
+});
+
+//veritabanında belirli şehre ait kategorileri çekiyoruz...
 shopsRoute.get("/kategoriler/:kategori/:sehir/", (req, res) => {
-  let sql = `SELECT DISTINCT ${req.params.kategori}, kategori FROM shops WHERE sehir='${req.params.sehir}' ` //ORDER BY kategori ASC; AND bolge='${req.params.bolge}
+  let sql = `SELECT DISTINCT ${req.params.kategori}, kategori FROM shops WHERE sehir='${req.params.sehir}'` //ORDER BY kategori ASC; AND bolge='${req.params.bolge}
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("something wrong with kategoriler", err);
@@ -64,7 +76,7 @@ shopsRoute.get("/kategoriler/:kategori/:sehir/", (req, res) => {
 
 //veritabanında belirli şehre ait tüm dükkan konumlarınu çekiyoruz...
 shopsRoute.get("/dukkanKonumlari/:sehir/", (req, res) => {
-  let sql = `SELECT konum,isim FROM shops WHERE sehir='${req.params.sehir}' ` //ORDER BY kategori ASC; AND bolge='${req.params.bolge}
+  let sql = `SELECT konum,isim FROM shops WHERE sehir='${req.params.sehir}'` //ORDER BY kategori ASC; AND bolge='${req.params.bolge}
   db.query(sql, (err, succ) => {
     if (err) {
       console.log("something wrong with kategoriler", err);
