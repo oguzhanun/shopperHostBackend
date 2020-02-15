@@ -74,6 +74,18 @@ shopsRoute.get("/dukkanKonumlari/:sehir/", (req, res) => {
   });
 });
 
+//veritabanında belirli şehre ait tüm dükkan konumlarınu çekiyoruz...
+shopsRoute.get("/dukkanKonumlari/:sehir/:kategori", (req, res) => {
+  let sql = `SELECT konum,isim FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}'` //ORDER BY kategori ASC; AND bolge='${req.params.bolge}
+  db.query(sql, (err, succ) => {
+    if (err) {
+      console.log("something wrong with kategoriler", err);
+      res.send("something wrong with kategoriler");
+    }
+    res.send(succ);
+  });
+});
+
 //veritabanında belirli bir şehir ve kategoriye ait dükkanları çekiyoruz...
 shopsRoute.get("/dukkanlar/:sehir/:kategori", (req, res) => {
   let sql = `SELECT isim,id,resim1,telefon,konum,rating FROM shops WHERE sehir='${req.params.sehir}' AND kategori='${req.params.kategori}' OR kategoriEN='${req.params.kategori}' OR kategoriAR='${req.params.kategori}' OR kategoriDE='${req.params.kategori}' OR kategoriRU='${req.params.kategori}'`;
